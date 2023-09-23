@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@600&family=Inter:wght@700&family=Josefin+Sans&display=swap');
+
+html{
+    font-size: 16px;
+}
+
+body {
+    min-height             : 100vh;
+    background         : url("../imgs/banner-6_gardening_2160x480.svg");
+    background-size    : 200%;
+    background-position: -150% 0%;
+    background-attachment: fixed;
+    font-family        : 'Inconsolata', monospace;
+    font-family        : 'Inter', sans-serif;
+    font-family        : 'Josefin Sans', sans-serif;
+}
+
+header>* {
+    margin: 50px;
+}
+
+header{
+    width: 50%;
+}
+header form {
+    width: 100%;
+}

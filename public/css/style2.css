@@ -1,0 +1,56 @@
+body {
+    background-position: 0% 0%;
+}
+header{
+    width: 80%;
+    margin: auto;
+}
+.options{
+    font-size: 1.8rem;
+}
+.options span:first-child{
+    color: green;
+}
+.options span:last-child{
+    color: red;
+}
+
+.options input[type=radio] {
+    appearance: none;
+  -webkit-appearance: none;
+  border-radius: 50%;
+  outline: 3px solid green;
+  width: 1.7em;
+  height: 1.7em;
+}
+.options input[type=radio]:nth-child(2) {
+    width: 1.7em;
+    height: 1.7em;
+}
+.options input[type=radio]:nth-child(3) {
+    width: 1.4em;
+    height: 1.4em;
+    outline: 3px solid rgb(45, 194, 45);
+}
+.options input[type=radio]:nth-child(4) {
+    width: 1.1em;
+    height: 1.1em;
+    outline: 3px solid grey;
+}
+.options input[type=radio]:nth-child(5) {
+    width: 1.4em;
+    height: 1.4em;
+    outline: 3px solid rgb(206, 80, 80);
+}
+.options input[type=radio]:nth-child(6) {
+    width: 1.7em;
+    height: 1.7em;
+    outline: 3px solid red;
+}
+.options input[type=radio]:checked {
+    background-color: rgb(70, 255, 255);
+    border: 4px solid #fff;
+}
+.question h3{
+    text-align: center;
+}
