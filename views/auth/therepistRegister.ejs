@@ -2,6 +2,11 @@
 <%- include('../partials/nav.ejs') %>
   
     <header>
+      <% if (msg.length>0) { %>
+        <div class="alert alert-danger m-4" role="alert">
+          <%= msg %>
+        </div>
+      <% } %>
         <form method="POST" action="/therepistRegister">
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Email address</label>

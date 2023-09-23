@@ -8,7 +8,12 @@ module.exports.get_vent = (req, res, next) => {
     res.render("victim/msgDropDown");
 }
 module.exports.get_index = (req, res, next) => {
-    res.render("landing", {
-        // productList: adminPage.items // array
-    });
+    // console.log(req.cookies);
+    if (req.cookies.user) {
+        res.render("victim/index");
+    } else if (req.cookies.therepist){
+        res.render("therepist/index");
+    } else {
+        res.render("landing");
+    }
 }

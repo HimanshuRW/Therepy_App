@@ -17,7 +17,7 @@ module.exports.post_therepist_register = (req, res, next) => {
                     req.body.otp = otp;
                     const url = `https://www.fast2sms.com/dev/bulkV2?authorization=Fyd2YXghDJznir8tGCjKf5aT0skNSQ3b6AMZEe9U7mlVWxRBPw7BLQTYprtGHUe3XxVJ0hR5kSvniKqP&route=otp&variables_values=${otp}&flash=0&numbers=${req.body.tel}`;
                     let response = await axios.get(url);
-                    console.log(response.data);
+                    // console.log(response.data);
                     res.cookie("otp", JSON.stringify(req.body));
                     res.redirect("/otp");
                 } else {
@@ -63,6 +63,7 @@ module.exports.post_otp = (req, res, next) => {
                 let user = await newUser.save();
                 res.cookie("logged", true);
                 res.cookie("therepist", user._id);
+                res.clearCookie('user');
                 req.user = user;
                 res.redirect("/");
             });
@@ -88,17 +89,18 @@ module.exports.post_user_register = (req, res, next) => {
                             let user = await newUser.save();
                             res.cookie("logged", true);
                             res.cookie("user", user._id);
+                            res.clearCookie('therepist');
                             req.user = user;
                             res.redirect("/");
                         });
                     });
                 } else {
-                    res.render("registerUser", {
+                    res.render("auth/registerUser", {
                         msg: "Password and Comfirm Password are not same"
                     });
                 }
             } else {
-                res.render("registerUser", {
+                res.render("auth/registerUser", {
                     msg: "This mail already exists"
                 });
             }
@@ -126,8 +128,8 @@ module.exports.post_login = (req, res, next) => {
                             // ----- right Credentials ----
                             res.cookie("logged", true);
                             res.cookie("user", user._id);
+                            res.clearCookie('therepist');
                             req.user = user;
-                            console.log("USER HO GAYA");
                             res.redirect("/");
                         } else {
                             // ---- wrong password ---
@@ -141,23 +143,28 @@ module.exports.post_login = (req, res, next) => {
             .catch(err => {
                 console.log(err);
             });
-    } else {
-        Therepist.findOne({ email: req.body.email })
+        } else {
+            Therepist.findOne({ email: req.body.email })
             .then(user => {
                 if (user == null) {
                     res.render("auth/login", {
                         msg: "Wrong Emial or password"
                     });
                 } else {
-                    bcrypt.compare(req.body.pass, user.pass, async (err, result) => {
+                    console.log("come in block");
+                    bcrypt.compare(req.body.pass, user.password, async (err, result) => {
                         if (result) {
                             // ----- right Credentials ----
+                            console.log("write password");
                             res.cookie("logged", true);
                             res.cookie("therepist", user._id);
+                            res.clearCookie('user');
+                            console.log("----------");
                             req.user = user;
                             res.redirect("/");
                         } else {
                             // ---- wrong password ---
+                            console.log("wrong Passwrord");
                             res.render("auth/login", {
                                 msg: "Wrong Emial or password"
                             });
