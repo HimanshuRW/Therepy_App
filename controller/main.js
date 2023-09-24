@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const Therepist = require("../models/therepist");
+const Chats = require("../models/chats");
 
 module.exports.get_checkup = (req, res, next) => {
     res.render("victim/QNA");
@@ -102,7 +103,7 @@ module.exports.get_test1 = async (req, res, next) => {
     res.render("solutions/QNA1");
 }
 module.exports.post_test1 = async (req, res, next) => {
-    let score = +req.body.q1+ +req.body.q2+ +req.body.q3;
+    let score = +req.body.q1 + +req.body.q2 + +req.body.q3;
     if (score > 10) {  // page 3 -> depression and bipolar disorder
         res.render("solutions/QNA3");
     } else {  //page -2 lonliness , anxiery
@@ -110,38 +111,84 @@ module.exports.post_test1 = async (req, res, next) => {
     }
 }
 module.exports.post_test2 = async (req, res, next) => {
-    let score = +req.body.q1+ +req.body.q2+ +req.body.q3;
+    let score = +req.body.q1 + +req.body.q2 + +req.body.q3;
     if (score < 11) {  // happy
-        res.render("solutions/msg",{
-            msg : "U r absolutely fine , keep enjoying the one life that u have somehow got !!!"
+        res.render("solutions/msg", {
+            msg: "U r absolutely fine , keep enjoying the one life that u have somehow got !!!"
         });
-    } else if (score< 15){  // lil anxiery
-        res.render("solutions/msg",{
-            msg : "U r having lil basic symtoms of anxiety but thats natrual, so its all fine !!!"
+    } else if (score < 15) {  // lil anxiery
+        res.render("solutions/msg", {
+            msg: "U r having lil basic symtoms of anxiety but thats natrual, so its all fine !!!"
         });
-    } else if (score< 17){  //  anxiery
-        res.render("solutions/anxiety",{
-            msg : "u r having some symtoms of Anxiety, but not to worry as its all curable...just do the following tasks"
+    } else if (score < 17) {  //  anxiery
+        res.render("solutions/anxiety", {
+            msg: "u r having some symtoms of Anxiety, but not to worry as its all curable...just do the following tasks"
         });
     } else {   // loneliness
-        res.render("solutions/bipolar",{
-            msg : "u r having some symtoms of Loneliness, but not to worry as its all curable...just do the following tasks"
+        res.render("solutions/bipolar", {
+            msg: "u r having some symtoms of Loneliness, but not to worry as its all curable...just do the following tasks"
         });
     }
 }
 module.exports.post_test3 = async (req, res, next) => {
-    let score = +req.body.q1+ +req.body.q2+ +req.body.q3;
+    let score = +req.body.q1 + +req.body.q2 + +req.body.q3;
     if (score < 11) {  // u r not in depression , but u get sad sometimes and loose yr track , u rnot inrested in making frdns , feels good in his own company, 
-        res.render("solutions/msg",{
-            msg : "u r not in depression , but u get sad sometimes and loose yr track , u rnot inrested in making frdns , feels good in his own company"
+        res.render("solutions/msg", {
+            msg: "u r not in depression , but u get sad sometimes and loose yr track , u rnot inrested in making frdns , feels good in his own company"
         });
-    } else if (score< 21){  // bi ploar
-        res.render("solutions/bipolar",{
-            msg : "u r having some symtoms of Bi-polar behaviour, but not to worry as its all curable...just do the following tasks"
+    } else if (score < 21) {  // bi ploar
+        res.render("solutions/bipolar", {
+            msg: "u r having some symtoms of Bi-polar behaviour, but not to worry as its all curable...just do the following tasks"
         });
     } else {   // depression
-        res.render("solutions/depression",{
-            msg : "u r having some symtoms of depression, but not to worry as its all curable...just do the following tasks"
+        res.render("solutions/depression", {
+            msg: "u r having some symtoms of depression, but not to worry as its all curable...just do the following tasks"
         });
     }
+}
+module.exports.join = async (req, res, next) => {
+    let issue = req.params.issue;
+    let doc = await User.findOneAndUpdate({ _id: req.user._id }, { $set: { sufferingPool: "issue" } });
+    res.redirect("/chat");
+}
+module.exports.get_chat = async (req, res, next) => {
+    if (req.user.sufferingPool) {
+        let arr;
+        let issue;
+        if (req.user.sufferingPool == "anxiety") {
+            issue = "anxiety";
+        } else if (req.user.sufferingPool == "depression") {
+            issue = "depression";
+        } else if (req.user.sufferingPool == "bipolar") {
+            issue = "bipolar";
+        } else {
+            issue = "loneliness";
+        }
+        let obj = await Chats.findOne({issue:issue});
+        res.render("solutions/chat", {
+            msgs: obj.msgs,
+            issue: issue
+        })
+    } else res.redirect("/test");
+}
+module.exports.post_chat = async (req, res, next) => {
+    let arr;
+    let issue;
+    if (req.user.sufferingPool == "anxiety") {
+        issue = "anxiety";
+    } else if (req.user.sufferingPool == "depression") {
+        issue = "depression";
+    } else if (req.user.sufferingPool == "bipolar") {
+        issue = "bipolar";
+    } else {
+        issue = "loneliness";
+    }
+    let obj = await Chats.findOne({issue:issue});
+    obj.msgs.push(req.body.day);
+    await obj.save();
+    obj = await Chats.findOne({issue:issue});
+    res.render("solutions/chat", {
+        msgs: obj.msgs,
+        issue: req.user.sufferingPool
+    })
 }

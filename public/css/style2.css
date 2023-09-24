@@ -54,3 +54,7 @@ header{
 .question h3{
     text-align: center;
 }
+.allMsgs{
+    max-height: 100vh;
+    overflow: auto;
+}

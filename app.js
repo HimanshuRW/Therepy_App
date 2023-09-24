@@ -6,6 +6,16 @@ const cookieParser = require('cookie-parser')
 
 const app = express();
 
+const Chats = require("./models/chats");
+let newChat = new Chats({ issue: "depression", msgs: [] });
+newChat.save();
+newChat = new Chats({ issue: "loneliness", msgs: [] });
+newChat.save();
+newChat = new Chats({ issue: "bipolar", msgs: [] });
+newChat.save();
+newChat = new Chats({ issue: "anxiety", msgs: [] });
+newChat.save();
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
