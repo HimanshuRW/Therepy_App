@@ -59,6 +59,7 @@ module.exports.post_otp = (req, res, next) => {
                     msgs: [],
                     city: myUser.city,
                     phone: myUser.tel,
+                    name: myUser.name,
                 })
                 let user = await newUser.save();
                 res.cookie("logged", true);
@@ -143,8 +144,8 @@ module.exports.post_login = (req, res, next) => {
             .catch(err => {
                 console.log(err);
             });
-        } else {
-            Therepist.findOne({ email: req.body.email })
+    } else {
+        Therepist.findOne({ email: req.body.email })
             .then(user => {
                 if (user == null) {
                     res.render("auth/login", {
@@ -176,4 +177,10 @@ module.exports.post_login = (req, res, next) => {
                 console.log(err);
             });
     }
+}
+module.exports.get_logout = (req, res, next) => {
+    res.clearCookie('user');
+    res.clearCookie('therepist');
+    res.clearCookie('logged');
+    res.redirect("/");
 }

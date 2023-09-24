@@ -1,11 +1,18 @@
 <%- include('../partials/head.ejs') %>
-<%- include('../partials/nav.ejs') %>
+<%- include('../partials/victimNav.ejs') %>
   
     <header>
-        <form>
+        <form class="m-5" method="POST" action="/msgTherepist">
               <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">How are You Feeling Today ?</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <label for="exampleFormControlTextarea1" class="form-label">
+                  <% if(vent) { %>
+                    How are You Feeling Today ?
+                  <% } else { %>
+                    Drop your messsage here !!
+                  <% } %>
+                </label>
+                <textarea name="msg" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <input type="hidden" name="therepistID" value="<%= therepistId %>">
               </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>

@@ -1,0 +1,52 @@
+<%- include('../partials/head2.ejs') %>
+<%- include('../partials/nav.ejs') %>
+  
+    <header>
+        <h1>
+            Take Up your mental health Quiz 😉
+        </h1>
+        <form action="/test3" method="POST">
+            <div class="mb-3">
+                <div class="mb-5">
+                    <h3 class="text-center">I feel sad all the time -it's a constant feeling that I just can't shake</h3>
+                    <div class="options d-flex justify-content-evenly align-items-center">
+                      <span>Agree</span>
+                      <input class="myOption" value="10" type="radio" name="q1" id="q1r1">
+                      <input class="myOption" type="radio" name="q1" id="q1r1" value="8">
+                      <input class="myOption" type="radio" name="q1" id="q1r1" value="6">
+                      <input class="myOption" type="radio" name="q1" id="q1r1" value="4">
+                      <input class="myOption" type="radio" name="q1" id="q1r1" value="1">
+                      <span>Disagee</span>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <h3 class="text-center">I soemtimes feel empty inside and numb</h3>
+                    <div class="options d-flex justify-content-evenly align-items-center">
+                      <span>Agree</span>
+                      <input class="myOption" type="radio" name="q2" id="q1r1" value="10">
+                      <input class="myOption" type="radio" name="q2" id="q1r1" value="8">
+                      <input class="myOption" type="radio" name="q2" id="q1r1" value="6">
+                      <input class="myOption" type="radio" name="q2" id="q1r1" value="4">
+                      <input class="myOption" type="radio" name="q2" id="q1r1" value="2">
+                      <span>Disagree</span>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <h3 class="text-center">Sometimes I feel like I’m a horrible person and deserve what happens to me</h3>
+                    <div class="options d-flex justify-content-evenly align-items-center">
+                      <span>Agree</span>
+                      <input class="myOption" type="radio" name="q3" id="q1r1" value="15">
+                      <input class="myOption" type="radio" name="q3" id="q1r1" value="12">
+                      <input class="myOption" type="radio" name="q3" id="q1r1" value="9">
+                      <input class="myOption" type="radio" name="q3" id="q1r1" value="6">
+                      <input class="myOption" type="radio" name="q3" id="q1r1" value="3">
+                      <span>Disagree</span>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+    </header>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>

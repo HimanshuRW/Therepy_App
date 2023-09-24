@@ -1,50 +1,22 @@
 <%- include('../partials/head.ejs') %>
-<%- include('../partials/nav.ejs') %>
+<%- include('../partials/victimNav.ejs') %>
   
     <header>
       <h1>Talk To Expert</h1>
         <div class="d-flex flex-wrap justify-content-evenly">
-            <div class="card m-4" style="width: 18rem;">
-                <img src="https://randomuser.me/api/portraits/men/75.jpg" class="card-img-top" alt="...">
+          <% if (counsellerArr.length>0) { %>
+            <% for(therepist of counsellerArr) { %>
+              <div class="card m-4" style="width: 18rem;">
                 <div class="card-body">
-                  <h5 class="card-title">Name</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Have a Talk</a>
+                  <h5 class="card-title"><%= therepist.name %></h5>
+                  <p class="card-text">From : <%= therepist.city %></p>
+                  <a href="/talk/<%= therepist._id %>" class="btn btn-primary">Have a talk</a>
                 </div>
               </div>
-            <div class="card m-4" style="width: 18rem;">
-                <img src="https://randomuser.me/api/portraits/men/75.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Name</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Have a Talk</a>
-                </div>
-              </div>
-            <div class="card m-4" style="width: 18rem;">
-                <img src="https://randomuser.me/api/portraits/men/75.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Name</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Have a Talk</a>
-                </div>
-              </div>
-            <div class="card m-4" style="width: 18rem;">
-                <img src="https://randomuser.me/api/portraits/men/75.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Name</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Have a Talk</a>
-                </div>
-              </div>
-            <div class="card m-4" style="width: 18rem;">
-                <img src="https://randomuser.me/api/portraits/men/75.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Name</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Have a Talk</a>
-                </div>
-              </div>
-            
+            <% } %> 
+          <% } else { %>
+            <h2>No Expterts Registered yet</h2>
+          <% } %>
             
         </div>
     </header>

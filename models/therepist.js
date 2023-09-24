@@ -10,6 +10,10 @@ const therepistSchema = new Schema({
         type: String,
         required: true
     },
+    name: {
+        type: String,
+        required: true
+    },
     city: {
         type: String,
         required: true
@@ -20,10 +24,8 @@ const therepistSchema = new Schema({
     },
     msgs: [
         {
-            msgBox: {
-                from: { type: Schema.Types.ObjectId, ref: "Users" },
-                msg: { type: String }
-            }
+            from: { type: Schema.Types.ObjectId, ref: "Users" },
+            msg: { type: String }
         }
     ]
 });

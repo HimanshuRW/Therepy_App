@@ -1,0 +1,52 @@
+<%- include('../partials/head2.ejs') %>
+<%- include('../partials/nav.ejs') %>
+  
+    <header>
+        <h1>
+            Take Up your mental health Quiz 😉
+        </h1>
+        <form action="/test1" method="POST">
+            <div class="mb-3">
+                <div class="mb-5">
+                    <h3 class="text-center">On a scale from 1 to 5 , with 1 being the best and 5 being the worst ,how would u describe your mood right now</h3>
+                    <div class="options d-flex justify-content-evenly align-items-center">
+                      <span>Best</span>
+                      <input class="myOption" value="1" type="radio" name="q1" id="q1r1">
+                      <input class="myOption" type="radio" name="q1" id="q1r1" value="2">
+                      <input class="myOption" type="radio" name="q1" id="q1r1" value="3">
+                      <input class="myOption" type="radio" name="q1" id="q1r1" value="4">
+                      <input class="myOption" type="radio" name="q1" id="q1r1" value="5">
+                      <span>Worst</span>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <h3 class="text-center">Do u like to make friends?</h3>
+                    <div class="options d-flex justify-content-evenly align-items-center">
+                      <span>A Lot</span>
+                      <input class="myOption" type="radio" name="q2" id="q1r1" value="1">
+                      <input class="myOption" type="radio" name="q2" id="q1r1" value="2">
+                      <input class="myOption" type="radio" name="q2" id="q1r1" value="3">
+                      <input class="myOption" type="radio" name="q2" id="q1r1" value="4">
+                      <input class="myOption" type="radio" name="q2" id="q1r1" value="5">
+                      <span>No</span>
+                    </div>
+                </div>
+                <div class="m-3">
+                    <h3 class="text-center">Sometimes You have trouble making even simple decisions.</h3>
+                    <div class="options d-flex justify-content-evenly align-items-center">
+                      <span>A lot</span>
+                      <input class="myOption" type="radio" name="q3" id="q1r1" value="5">
+                      <input class="myOption" type="radio" name="q3" id="q1r1" value="4">
+                      <input class="myOption" type="radio" name="q3" id="q1r1" value="3">
+                      <input class="myOption" type="radio" name="q3" id="q1r1" value="2">
+                      <input class="myOption" type="radio" name="q3" id="q1r1" value="1">
+                      <span>no</span>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+    </header>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>

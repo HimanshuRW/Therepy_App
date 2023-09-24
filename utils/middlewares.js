@@ -1,16 +1,33 @@
 const User = require("../models/user");
 const Therepist = require("../models/therepist");
 
-module.exports.auth =  async (req,res,next)=>{
-    if(req.cookies.logged){
+module.exports.auth = async (req, res, next) => {
+    if (req.cookies.logged) {
+        console.log("logged");
         if (req.cookies.user) {
-            req.user = await User.findById(req.user);
+            console.log("victim hai");
+            req.user = await User.findById(req.cookies.user).populate({
+                path: 'msgs',
+                populate: {
+                    path: 'from',
+                    model: 'Therepists'
+                }
+            });
             next();
         } else {
-            req.user = await Therepist.findById(req.user);
+            console.log("therepist hai");
+            req.user = await Therepist.findById(req.cookies.therepist).populate({
+                path: 'msgs',
+                populate: {
+                    path: 'from',
+                    model: 'Users'
+                }
+            });
+
             next();
         }
     } else {
-        res.redirect("/");
+        console.log("not logged in ");
+        res.render("landing");
     }
 }

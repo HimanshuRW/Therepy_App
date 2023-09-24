@@ -15,10 +15,8 @@ const userSchema = new Schema({
     },
     msgs: [
         {
-            msgBox: {
-                from: { type: Schema.Types.ObjectId, ref: "Therepists" },
-                msg: { type: String }
-            }
+            from: { type: Schema.Types.ObjectId, ref: "Therepists" },
+            msg: { type: String }
         }
     ]
 });
