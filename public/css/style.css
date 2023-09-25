@@ -7,8 +7,8 @@ html{
 body {
     min-height             : 100vh;
     background         : url("../imgs/banner-6_gardening_2160x480.svg");
-    background-size    : 200%;
-    background-position: -150% 0%;
+    background-size    : cover;
+    background-position: -120% 0%;
     background-attachment: fixed;
     font-family        : 'Inconsolata', monospace;
     font-family        : 'Inter', sans-serif;

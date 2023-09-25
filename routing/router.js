@@ -30,4 +30,5 @@ router.post("/test3",middlewares.auth,mainController.post_test3);
 router.get("/join/:issue",middlewares.auth,mainController.join);
 router.get("/chat",middlewares.auth,mainController.get_chat);
 router.post("/chat",middlewares.auth,mainController.post_chat);
+router.post("/vent",mainController.post_vent);
 module.exports = router;

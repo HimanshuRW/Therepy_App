@@ -2,7 +2,12 @@
 <%- include('../partials/victimNav.ejs') %>
   
     <header>
-        <form class="m-5" method="POST" action="/msgTherepist">
+        <% if(vent) { %>
+          <form class="m-5" method="POST" action="/vent">
+        <% } else { %>
+          <form class="m-5" method="POST" action="/msgTherepist">
+        <% } %>
+        <!-- <form class="m-5" method="POST" action="/msgTherepist"> -->
               <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">
                   <% if(vent) { %>

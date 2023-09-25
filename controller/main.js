@@ -1,12 +1,55 @@
 const User = require("../models/user");
 const Therepist = require("../models/therepist");
 const Chats = require("../models/chats");
+const axios = require('axios');
 
 module.exports.get_checkup = (req, res, next) => {
     res.render("victim/QNA");
 }
 module.exports.get_vent = (req, res, next) => {
-    res.render("victim/msgDropDown");
+    res.render("victim/msgDropDown", {
+        vent: true,
+        therepistId: ""
+    });
+}
+module.exports.post_vent = async (req, res, next) => {
+    try {
+        let resp = await axios.post("https://api.apilayer.com/text_to_emotion",
+            // req.body.msg,
+            "i am scared of going in dark due to horror movie today",
+            {
+                redirect: 'follow',
+                headers: { 'apikey': 'Ayz4jKxUi1bYrb33EUW1j8VoH359lTHP' }
+            });
+        console.log(resp.data);
+        let dominanteEmotion ="";
+        let lowest =0;
+        for (emotion in resp.data){
+            if (resp.data[emotion]>lowest) {
+                lowest = resp.data[emotion];
+                dominanteEmotion = emotion;
+            }
+        }
+        let msg = "";
+        if (dominanteEmotion=="Happy") {
+            msg = `Well, seems like You had a good day... may be u continue with great one !!!`;
+        } else if (dominanteEmotion=="Angry") {
+            msg = `Seems like u dont have the best day, but its ok, life is like that , u better not ruin yr mental peace`;
+        } else if (dominanteEmotion=="Surprise") {
+            msg = `Seems like u got to have somenting new today, anyways life is all abt unexpected suprise ....`;
+        } else if (dominanteEmotion=="Sad") {
+            msg = `u know , its all okay to not be happy all the time, bcz we humans r natually like that, so just feel yr emotions lightly, and its all okay`;
+        } else if (dominanteEmotion=="Fear") {
+            msg = `seems lik something inside u not leeting do do what u really want... its ok , just let yr inner self out`;
+        } else {
+            msg = `Nothing much to concluded..`;
+        }
+        res.render("victim/msg",{
+            msg : msg
+        })
+    } catch (error) {
+        console.error(error);
+    }
 }
 module.exports.get_index = (req, res, next) => {
     // console.log(req.cookies);
@@ -164,7 +207,7 @@ module.exports.get_chat = async (req, res, next) => {
         } else {
             issue = "loneliness";
         }
-        let obj = await Chats.findOne({issue:issue});
+        let obj = await Chats.findOne({ issue: issue });
         res.render("solutions/chat", {
             msgs: obj.msgs,
             issue: issue
@@ -183,10 +226,10 @@ module.exports.post_chat = async (req, res, next) => {
     } else {
         issue = "loneliness";
     }
-    let obj = await Chats.findOne({issue:issue});
+    let obj = await Chats.findOne({ issue: issue });
     obj.msgs.push(req.body.day);
     await obj.save();
-    obj = await Chats.findOne({issue:issue});
+    obj = await Chats.findOne({ issue: issue });
     res.render("solutions/chat", {
         msgs: obj.msgs,
         issue: req.user.sufferingPool
